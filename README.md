@@ -1,6 +1,6 @@
 # Flake test
 
-I want to create a flake that can provide me with multiple shells
+I want to create a flake that can provide me multiple shells
 
 ## How to run
 

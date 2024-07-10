@@ -18,6 +18,7 @@
     devShells.x86_64-linux.serviceA = pkgs.mkShell {
       buildInputs = [ pkgs.nodejs pkgs.fish ];
       shellHook = ''
+        export FATT=A
         cd serviceA
       '';
     };
@@ -26,6 +27,7 @@
       buildInputs = [ pkgs.go pkgs.fish ];
 
       shellHook = ''
+        export FATT=B
         cd serviceB
       '';
     };

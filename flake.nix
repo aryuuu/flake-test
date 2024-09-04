@@ -3,34 +3,42 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    systems.url = "github:nix-systems/default";
+    krakend.url = "git+file:/home/fatt/project/krakend-flake";
   };
 
-  outputs = { self, nixpkgs }: 
+  outputs = { self, nixpkgs, systems, krakend, ... }: 
   let 
-    pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      inherit (nixpkgs) lib;
+      eachSystem = lib.genAttrs (import systems);
+      pkgsFor = eachSystem (system:
+        import nixpkgs {
+          system = system;
+        }
+      );
   in
   {
 
-    # packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
+      devShells = eachSystem (system: {
+        krakend = pkgsFor.${system}.mkShell {
+          packages = [ 
+            pkgsFor.${system}.fish 
+            pkgsFor.${system}.hello
+            krakend.packages.${system}.default
+          ];
 
-    # packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
+          shellHook = ''
+            cd krakend
+          '';
+        };
 
-    devShells.x86_64-linux.serviceA = pkgs.mkShell {
-      buildInputs = [ pkgs.nodejs pkgs.fish ];
-      shellHook = ''
-        export FATT=A
-        cd serviceA
-      '';
-    };
-
-    devShells.x86_64-linux.serviceB = pkgs.mkShell {
-      buildInputs = [ pkgs.go pkgs.fish ];
-
-      shellHook = ''
-        export FATT=B
-        cd serviceB
-      '';
-    };
+        serviceA = pkgsFor.${system}.mkShell {
+          packages = [ 
+            pkgsFor.${system}.fish 
+            pkgsFor.${system}.go
+          ];
+        };
+      });
 
   };
 }

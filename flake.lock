@@ -6,14 +6,17 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1725115613,
-        "narHash": "sha256-zP5eKmXEzlWLUYP33i0k+WkQuUQr9TiBnCD+NHEIMfc=",
-        "path": "/home/fatt/project/krakend-flake",
-        "type": "path"
+        "lastModified": 1741776739,
+        "narHash": "sha256-uqgRIcJOdkIo5I58xRnaRixHiJD/EP6S3CJMhD23S/U=",
+        "ref": "refs/heads/master",
+        "rev": "fa794ec36400c538cb1d9cb411be9482e6d4714f",
+        "revCount": 1,
+        "type": "git",
+        "url": "file:/home/fatt/project/krakend-flake"
       },
       "original": {
-        "path": "/home/fatt/project/krakend-flake",
-        "type": "path"
+        "type": "git",
+        "url": "file:/home/fatt/project/krakend-flake"
       }
     },
     "nixpkgs": {

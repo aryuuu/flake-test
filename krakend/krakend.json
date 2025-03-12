@@ -2,7 +2,7 @@
     "$schema": "https://www.krakend.io/schema/v2.5/krakend.json",
     "version": 3,
     "name": "My lovely gateway",
-    "port": 8080,
+    "port": 8081,
     "cache_ttl": "3600s",
     "timeout": "3s",
     "extra_config": {
@@ -30,51 +30,15 @@
     },
     "endpoints": [
         {
-            "endpoint": "/supu",
+            "endpoint": "/fee_rules/{id}",
             "method": "GET",
-            "input_headers": ["Authorization", "Content-Type"],
+            "input_headers": ["*"],
             "backend": [
                 {
                     "host": [
-                        "http://127.0.0.1:8000"
+                        " https://receptor.aryuuu.com"
                     ],
-                    "url_pattern": "/__debug/supu",
-                    "extra_config": {
-                        "modifier/martian": {
-                            "fifo.Group": {
-                                "scope": ["request", "response"],
-                                "aggregateErrors": true,
-                                "modifiers": [
-                                {
-                                    "header.Modifier": {
-                                        "scope": ["request", "response"],
-                                        "name" : "X-Martian",
-                                        "value" : "ouh yeah!"
-                                    }
-                                },
-                                {
-                                    "header.RegexFilter": {
-                                        "scope": ["request"],
-                                        "header" : "X-Neptunian",
-                                        "regex" : "no!",
-                                        "modifier": {
-                                            "header.Modifier": {
-                                                "scope": ["request"],
-                                                "name" : "X-Martian-New",
-                                                "value" : "some value"
-                                            }
-                                        }
-                                    }
-                                }
-                                ]
-                            }
-                        },
-                        "qos/circuit-breaker": {
-                            "interval": 60,
-                            "timeout": 10,
-                            "max_errors": 1
-                        }
-                    }
+                    "url_pattern": "/README.md"
                 }
             ]
         },
@@ -218,4 +182,3 @@
         }
     ]
 }
-
